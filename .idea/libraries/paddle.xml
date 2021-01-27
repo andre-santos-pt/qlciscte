@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="paddle">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Dropbox/PADDLE/Sprinter/lib/antlr-v4-runtime.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/PADDLE/Sprinter/lib/org-mozilla-universalchardet.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/PADDLE/Sprinter/lib/pt-iscte-paddle-model-java.jar!/" />
+      <root url="jar://$USER_HOME$/Dropbox/PADDLE/Sprinter/lib/pt-iscte-paddle-model.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
