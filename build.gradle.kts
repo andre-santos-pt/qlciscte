@@ -54,6 +54,7 @@ kotlin {
                 implementation("io.ktor:ktor-server-netty:1.5.0")
                 implementation("io.ktor:ktor-html-builder:1.5.0")
                 implementation("io.ktor:ktor-gson:1.5.0")
+                implementation("io.ktor:ktor-client-cio:1.5.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.2")
                 implementation(fileTree("lib") {
                     include("paddle.jar")
@@ -114,7 +115,16 @@ tasks.register("stage") {
     dependsOn("installDist")
 }
 
-
+distributions {
+    main {
+        contents {
+            from("$buildDir/libs") {
+                rename("${rootProject.name}-jvm", rootProject.name)
+                into("lib")
+            }
+        }
+    }
+}
 
 
 

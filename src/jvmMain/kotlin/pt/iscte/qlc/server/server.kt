@@ -2,6 +2,10 @@ package pt.iscte.qlc.server
 
 import QuestionAnswer
 import io.ktor.application.*
+import io.ktor.client.*
+import io.ktor.client.features.json.*
+import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
 import io.ktor.features.*
 import io.ktor.html.*
 import io.ktor.http.*
@@ -14,6 +18,9 @@ import kotlinx.html.*
 import pt.iscte.paddle.model.*
 import pt.iscte.paddle.model.javaparser.*
 import io.ktor.gson.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.net.URL
 
 
 fun HTML.index() {
@@ -31,6 +38,12 @@ fun HTML.index() {
             src = "/static/iscte-logo.jpg"
             width = "100"
         }
+        button {
+            GlobalScope.launch {
+                getC("test")
+            }
+            +"test"
+        }
         script(src = "/static/editor.js") {}
 
         div {
@@ -38,6 +51,17 @@ fun HTML.index() {
         }
         script(src = "/static/output.js") {}
     }
+}
+
+suspend fun getC(code: String) {
+    val client = HttpClient()
+
+
+    val content: String = client.post("https://script.google.com/macros/s/AKfycbxfW168PaSe0ahyvQ_z5lEWiXeMxNE1sqwK_WMN3qhfPHCbWlacC1aP/exec") {
+        header("code", code)
+    }
+
+    println(content)
 }
 
 fun Application.main() {
@@ -49,13 +73,10 @@ fun Application.main() {
         }
     }
     install(Routing) {
-//        get("/") {
-//            call.respondText("My Example Blog2", ContentType.Text.Html)
-//        }
 
         get("/") {
-            call.respondHtml(HttpStatusCode.OK, HTML::index)
-            //call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+            //call.respondHtml(HttpStatusCode.OK, HTML::index)
+            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         get("/ask") {
             val code = call.request.queryParameters["code"]
@@ -83,6 +104,7 @@ fun Application.main() {
                 val ans = q.answer(model.procedures[0])
                 println("ans: $ans")
                 val correct = if (answer == ans) "Correct" else "Incorrect"
+                getC(code!!)
                 call.respond(QuestionAnswer(correct, ans))
             }
         }
