@@ -1,1 +1,1 @@
-web: build/install/untitled/bin/untitled
+web: build/install/qlciscte/bin/qlciscte
