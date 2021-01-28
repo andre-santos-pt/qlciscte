@@ -75,8 +75,8 @@ fun Application.main() {
     install(Routing) {
 
         get("/") {
-            //call.respondHtml(HttpStatusCode.OK, HTML::index)
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+            call.respondHtml(HttpStatusCode.OK, HTML::index)
+            //call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
         }
         get("/ask") {
             val code = call.request.queryParameters["code"]
